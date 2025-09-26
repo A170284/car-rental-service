@@ -1,34 +1,27 @@
-# 🚗 Car Rental Management System
+# 🚗 Car Rental Service
 
-A full-stack **Flask + PostgreSQL** web application for managing a car rental business.  
-Features include CRUD operations for branches, cars, customers, employees, reservations, rentals, payments, accidents, and transaction history.
-
----
-
-## 📋 Features
-
-- Branch, Car, Customer, Employee management
-- Reservations & Rentals with daily rate calculation
-- Payments tracking
-- Accident & Transaction history
-- Bootstrap-based admin UI
+A Flask + PostgreSQL web application for managing a car rental business.  
+Supports branches, cars, customers, employees, reservations, rentals, payments, accidents, and transaction history.  
 
 ---
 
-## 🛠️ Tech Stack
-
-- **Backend:** Python 3.10+, Flask, SQLAlchemy
-- **Database:** PostgreSQL
-- **Frontend:** HTML, Bootstrap 5, Jinja2 templates
-- **Other:** Flask-Migrate, pg8000
+## 📦 Features
+- Add, edit, delete, and view all entities (branches, cars, customers, etc.)
+- Rental start/end with automatic cost calculation
+- Transaction history tracking
+- PostgreSQL relational schema with dummy data
+- Fully container-ready (can extend with Docker later)
 
 ---
 
-## ⚙️ Setup Instructions
+## 🛠️ Requirements
+- **Python 3.10+** (works with 3.13 too)
+- **PostgreSQL 14+** (tested with PostgreSQL 18)
+- **Git**
 
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/a170284/car-rental-system.git
-cd car-rental-system
-```
+Python dependencies are in `requirements.txt`:
+```txt
+Flask
+Flask-SQLAlchemy
+pg8000
+python-dotenv
