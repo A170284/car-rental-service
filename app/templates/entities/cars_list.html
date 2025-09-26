@@ -1,0 +1,54 @@
+{% extends "base.html" %} {% block content %}
+<h3>Cars</h3>
+<a class="btn btn-primary mb-3" href="{{ url_for('main.cars_add') }}"
+  >Add Car</a
+>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Model</th>
+      <th>Make</th>
+      <th>Year</th>
+      <th>Reg No</th>
+      <th>Status</th>
+      <th>Branch</th>
+      <th>Rate</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for c in items %}
+    <tr>
+      <td>{{ c.carid }}</td>
+      <td>{{ c.model }}</td>
+      <td>{{ c.make }}</td>
+      <td>{{ c.year }}</td>
+      <td>{{ c.registrationnumber }}</td>
+      <td>{{ c.availabilitystatus }}</td>
+      <td>{{ c.branchid }}</td>
+      <td>{{ c.dailyrate }}</td>
+      <td>
+        <a
+          class="btn btn-sm btn-outline-secondary"
+          href="{{ url_for('main.cars_edit', id=c.carid) }}"
+          >Edit</a
+        >
+        <form
+          method="post"
+          action="{{ url_for('main.cars_delete', id=c.carid) }}"
+          style="display: inline"
+        >
+          <button
+            class="btn btn-sm btn-outline-danger"
+            onclick="return confirm('Delete car?')"
+          >
+            Delete
+          </button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

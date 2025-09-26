@@ -1,0 +1,42 @@
+{% extends "base.html" %} {% block content %}
+<h3>{{ title }}</h3>
+<a class="btn btn-primary mb-3" href="{{ add_url }}">Add New</a>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      {% for col in columns %}
+      <th>{{ col }}</th>
+      {% endfor %}
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in items %}
+    <tr>
+      {% for attr in attrs %}
+      <td>{{ getattr(item, attr) }}</td>
+      {% endfor %}
+      <td>
+        <a
+          class="btn btn-sm btn-outline-secondary"
+          href="{{ url_for(edit_endpoint, id=getattr(item, id_attr)) }}"
+          >Edit</a
+        >
+        <form
+          method="post"
+          action="{{ url_for(delete_endpoint, id=getattr(item, id_attr)) }}"
+          style="display: inline"
+        >
+          <button
+            class="btn btn-sm btn-outline-danger"
+            onclick="return confirm('Delete?')"
+          >
+            Delete
+          </button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

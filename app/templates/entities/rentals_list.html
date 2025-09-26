@@ -1,0 +1,52 @@
+{% extends "base.html" %} {% block content %}
+<h3>Rentals</h3>
+<a class="btn btn-primary mb-3" href="{{ url_for('main.rentals_add') }}"
+  >Start Rental</a
+>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Reservation</th>
+      <th>Start</th>
+      <th>Return</th>
+      <th>Total</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for rent in items %}
+    <tr>
+      <td>{{ rent.rentalid }}</td>
+      <td>{{ rent.reservationid }}</td>
+      <td>{{ rent.rentalstartdate }}</td>
+      <td>{{ rent.actualreturndate or 'Ongoing' }}</td>
+      <td>{{ rent.totalcost or 'Pending' }}</td>
+      <td>
+        <form
+          method="post"
+          action="{{ url_for('main.rentals_end', id=rent.rentalid) }}"
+          style="display: inline"
+        >
+          {% if not rent.actualreturndate %}
+          <button class="btn btn-sm btn-success">End Rental</button>
+          {% endif %}
+        </form>
+        <form
+          method="post"
+          action="{{ url_for('main.rentals_delete', id=rent.rentalid) }}"
+          style="display: inline"
+        >
+          <button
+            class="btn btn-sm btn-outline-danger"
+            onclick="return confirm('Delete rental?')"
+          >
+            Delete
+          </button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

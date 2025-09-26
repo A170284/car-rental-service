@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>{{ title }}</h3>
+<form method="post" class="mt-3">
+  {% for field in fields %}
+    {% set name = field[0] %}
+    {% set ftype = field[1] %}
+    <div class="mb-3">
+      <label class="form-label">{{ name|capitalize }}</label>
+
+      {% if ftype == 'select' %}
+        <select name="{{ name }}" class="form-select">
+          <option value="">--select--</option>
+          {% for opt in field[2] %}
+            {% set opt_pk = (
+              opt.__dict__.get('branchid') or opt.__dict__.get('customerid') or
+              opt.__dict__.get('carid') or opt.__dict__.get('locationid') or
+              opt.__dict__.get('reservationid') or opt.__dict__.get('rentalid') or
+              opt.__dict__.get('employeeid') or opt.__dict__.get('paymentid') or
+              opt.__dict__.get('accidentid') or opt.__dict__.get('transactionid')
+            ) %}
+            {% set label = (
+              opt.__dict__.get('branchname') or opt.__dict__.get('name') or
+              opt.__dict__.get('model') or opt.__dict__.get('address') or
+              opt.__dict__.get('email') or opt.__dict__.get('registrationnumber') or
+              opt.__dict__.get('reservationdate') or opt.__dict__.get('action')
+            ) %}
+            <option value="{{ opt_pk }}"
+              {% if obj and (obj|attr(name)) == opt_pk %}selected{% endif %}>
+              {{ label or opt_pk }}
+            </option>
+          {% endfor %}
+        </select>
+
+      {% elif ftype == 'checkbox' %}
+        <input type="checkbox" name="{{ name }}" class="form-check-input"
+          {% if obj and (obj|attr(name)) %}checked{% endif %}/>
+
+      {% else %}
+        <input type="{{ 'text' if ftype in ['string','text'] else ftype }}"
+               name="{{ name }}"
+               class="form-control"
+               value="{{ obj|attr(name) if obj and (obj|attr(name) is not none) else '' }}">
+      {% endif %}
+    </div>
+  {% endfor %}
+  <button class="btn btn-primary">Save</button>
+</form>
+{% endblock %}

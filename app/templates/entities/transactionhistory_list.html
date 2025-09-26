@@ -1,0 +1,41 @@
+{% extends "base.html" %} {% block content %}
+<h3>Transaction History</h3>
+<a class="btn btn-primary mb-3" href="{{ url_for('main.transactions_add') }}"
+  >Add Transaction</a
+>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Rental</th>
+      <th>Action</th>
+      <th>Date</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for t in items %}
+    <tr>
+      <td>{{ t.transactionid }}</td>
+      <td>{{ t.rentalid }}</td>
+      <td>{{ t.action }}</td>
+      <td>{{ t.actiondate }}</td>
+      <td>
+        <form
+          method="post"
+          action="{{ url_for('main.transactions_delete', id=t.transactionid) }}"
+          style="display: inline"
+        >
+          <button
+            class="btn btn-sm btn-outline-danger"
+            onclick="return confirm('Delete transaction?')"
+          >
+            Delete
+          </button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

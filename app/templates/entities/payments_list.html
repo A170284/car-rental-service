@@ -1,0 +1,43 @@
+{% extends "base.html" %} {% block content %}
+<h3>Payments</h3>
+<a class="btn btn-primary mb-3" href="{{ url_for('main.payments_add') }}"
+  >Record Payment</a
+>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Rental</th>
+      <th>Amount</th>
+      <th>Date</th>
+      <th>Method</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in items %}
+    <tr>
+      <td>{{ p.paymentid }}</td>
+      <td>{{ p.rentalid }}</td>
+      <td>{{ p.amount }}</td>
+      <td>{{ p.paymentdate }}</td>
+      <td>{{ p.paymentmethod }}</td>
+      <td>
+        <form
+          method="post"
+          action="{{ url_for('main.payments_delete', id=p.paymentid) }}"
+          style="display: inline"
+        >
+          <button
+            class="btn btn-sm btn-outline-danger"
+            onclick="return confirm('Delete payment?')"
+          >
+            Delete
+          </button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

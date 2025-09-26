@@ -1,0 +1,44 @@
+{% extends "base.html" %} {% block content %}
+<h3>Locations</h3>
+<a class="btn btn-primary mb-3" href="{{ url_for('main.locations_add') }}"
+  >Add Location</a
+>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Address</th>
+      <th>Branch</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for loc in items %}
+    <tr>
+      <td>{{ loc.locationid }}</td>
+      <td>{{ loc.address }}</td>
+      <td>{{ loc.branchid }}</td>
+      <td>
+        <a
+          class="btn btn-sm btn-outline-secondary"
+          href="{{ url_for('main.locations_edit', id=loc.locationid) }}"
+          >Edit</a
+        >
+        <form
+          method="post"
+          action="{{ url_for('main.locations_delete', id=loc.locationid) }}"
+          style="display: inline"
+        >
+          <button
+            class="btn btn-sm btn-outline-danger"
+            onclick="return confirm('Delete location?')"
+          >
+            Delete
+          </button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

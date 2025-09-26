@@ -1,0 +1,18 @@
+{% extends "base.html" %} {% block content %}
+<div class="row">
+  <div class="col-md-8">
+    <h1 class="display-6">Car Rental Management</h1>
+    <p class="text-muted">
+      Admin dashboard — use the navigation bar to manage entities.
+    </p>
+  </div>
+  <div class="col-md-4">
+    <div class="card p-3">
+      <div><strong>Branches:</strong> {{ branch_count }}</div>
+      <div><strong>Cars:</strong> {{ car_count }}</div>
+      <div><strong>Reservations:</strong> {{ reservation_count }}</div>
+      <div><strong>Active Rentals:</strong> {{ rental_count }}</div>
+    </div>
+  </div>
+</div>
+{% endblock %}

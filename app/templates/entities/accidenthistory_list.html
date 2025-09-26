@@ -1,0 +1,43 @@
+{% extends "base.html" %} {% block content %}
+<h3>Accident History</h3>
+<a class="btn btn-primary mb-3" href="{{ url_for('main.accidents_add') }}"
+  >Add Accident</a
+>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Customer</th>
+      <th>Car</th>
+      <th>Date</th>
+      <th>Description</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for a in items %}
+    <tr>
+      <td>{{ a.accidentid }}</td>
+      <td>{{ a.customerid }}</td>
+      <td>{{ a.carid }}</td>
+      <td>{{ a.accidentdate }}</td>
+      <td>{{ a.description }}</td>
+      <td>
+        <form
+          method="post"
+          action="{{ url_for('main.accidents_delete', id=a.accidentid) }}"
+          style="display: inline"
+        >
+          <button
+            class="btn btn-sm btn-outline-danger"
+            onclick="return confirm('Delete record?')"
+          >
+            Delete
+          </button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

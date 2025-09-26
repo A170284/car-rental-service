@@ -1,0 +1,49 @@
+{% extends "base.html" %} {% block content %}
+<h3>Reservations</h3>
+<a class="btn btn-primary mb-3" href="{{ url_for('main.reservations_add') }}"
+  >Add Reservation</a
+>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Customer</th>
+      <th>Car</th>
+      <th>Pickup</th>
+      <th>Dropoff</th>
+      <th>From</th>
+      <th>To</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for r in items %}
+    <tr>
+      <td>{{ r.reservationid }}</td>
+      <td>{{ r.customerid }}</td>
+      <td>{{ r.carid }}</td>
+      <td>{{ r.pickuplocationid }}</td>
+      <td>{{ r.dropofflocationid }}</td>
+      <td>{{ r.reservationdate }}</td>
+      <td>{{ r.returndate }}</td>
+      <td>{{ r.status }}</td>
+      <td>
+        <form
+          method="post"
+          action="{{ url_for('main.reservations_delete', id=r.reservationid) }}"
+          style="display: inline"
+        >
+          <button
+            class="btn btn-sm btn-outline-danger"
+            onclick="return confirm('Delete reservation?')"
+          >
+            Delete
+          </button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
